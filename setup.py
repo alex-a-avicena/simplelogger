@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setup(
     name='levellogger',
-    version='0.2.3',
+    version='0.2.4',
     packages=find_packages(),
     install_requires=[
         'datetime',
