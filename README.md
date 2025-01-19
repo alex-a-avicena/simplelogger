@@ -1,6 +1,6 @@
-# Simple Logger
+# Level Logger
 
-Simple Logger is a Python class that provides a simple and customizable logging system with colored output. It allows you to log messages at different levels of severity and customize the appearance of your log messages.
+Level Logger is a Python class that provides a simple and customizable logging system with colored output. It allows you to log messages at different levels of severity and customize the appearance of your log messages.
 
 ![image](https://github.com/user-attachments/assets/80b68150-a0e2-4d62-9b9a-4be675757f53)
 
@@ -14,13 +14,13 @@ Simple Logger is a Python class that provides a simple and customizable logging 
 
 ## Installation
 
-To use the Colorful Logger, simply copy the `Logger` class into your Python project.
+To use the Level Logger, run `pip install levellogger`
 
 ## Usage
 
 Here's a basic example of how to use the Logger:
 
-      from simplelogger import Logger
+      from levellogger import Logger
 
       # Initialize the logger
       logger = Logger(level="DEBUG", header="MyApp")
@@ -72,4 +72,4 @@ This will output colored log messages with timestamps and the specified header.
 
 ## License
 
-This project is open-source and available under the MIT License.
+This project is open-source and available under the GNU 3 License.

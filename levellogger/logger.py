@@ -1,4 +1,12 @@
-import re
+__author__ = "Alex Ackerman"
+__copyright__ = "Copyright 2025, Alex Ackerman"
+__credits__ = ["Alex Ackerman"]
+__license__ = "GPL"
+__version__ = "0.2"
+__date__ = "January 18, 2025"
+__maintainer__ = "Alex Ackerman"
+__status__ = "Production"
+
 from datetime import datetime
 from typing import Union
 
@@ -30,7 +38,9 @@ class Logger():
         if header == None:
             self.header = ""
         else:
-            self.header = header
+            self.header = f"{header}: "
+        
+        self.level = 1
 
         if type(level) == str:
             if level.upper() == "DEBUG":
@@ -52,9 +62,9 @@ class Logger():
             if level < 0 or level > 5:
                 self.__logger_msg("Invalid log level - defaulting to 'INFO'")
                 level = 1
-            else:
-                self.__logger_msg("Log level set to: " + str(level))
-                self.level = level
+        else:
+            self.__logger_msg("Log level set to: " + str(level))
+            self.level = level
 
         self.enabled = True
 
@@ -69,8 +79,8 @@ class Logger():
         Args:
             header (str): The message header.
         """
-        self.__logger_msg("Message header set to: " + header)
-        self.header = header
+        self.__logger_msg(f"Message header set to '{header}'")
+        self.header = f"{header}: "
 
     def enable_logging(self):
         """
@@ -93,7 +103,7 @@ class Logger():
             message (str): The message to log.
         """
         if self.level == 0 and self.enabled:
-            string  = f"{self.white}{self.__datecode()}    DEBUG: {self.header}: {message}{self.reset}"
+            string  = f"{self.white}{self.__datecode()}    DEBUG: {self.header}{message}{self.reset}"
             print(string)
     
     def info(self, message):
@@ -103,7 +113,7 @@ class Logger():
             message (str): The message to log.
         """
         if self.level <= 1 and self.enabled:
-            string  = f"{self.cyan}{self.__datecode()}     INFO: {self.header}: {message}{self.reset}"
+            string  = f"{self.cyan}{self.__datecode()}     INFO: {self.header}{message}{self.reset}"
             print(string)
         
     def attention(self, message):
@@ -113,7 +123,7 @@ class Logger():
             message (str): The message to log.
         """
         if self.level <= 2 and self.enabled:
-            string  = f"{self.green}{self.__datecode()}ATTENTION: {self.header}: {message}{self.reset}"
+            string  = f"{self.green}{self.__datecode()}ATTENTION: {self.header}{message}{self.reset}"
             print(string)
         
     def warning(self, message):
@@ -123,7 +133,7 @@ class Logger():
             message (str): The message to log.
         """
         if self.level <= 3 and self.enabled:
-            string  = f"{self.yellow}{self.__datecode()}  WARNING: {self.header}: {message}{self.reset}"
+            string  = f"{self.yellow}{self.__datecode()}  WARNING: {self.header}{message}{self.reset}"
             print(string)
         
     def error(self, message):
@@ -133,7 +143,7 @@ class Logger():
             message (str): The message to log.
         """
         if self.level <= 4 and self.enabled:
-            string  = f"{self.red}{self.__datecode()}    ERROR: {self.header}: {message}{self.reset}"
+            string  = f"{self.red}{self.__datecode()}    ERROR: {self.header}{message}{self.reset}"
             print(string)
         
     def critical(self, message):
@@ -143,7 +153,7 @@ class Logger():
             message (str): The message to log.
         """
         if self.level <= 5 and self.enabled:
-            string  = f"{self.magenta}{self.__datecode()} CRITICAL: {self.header}: {message}{self.reset}"
+            string  = f"{self.magenta}{self.__datecode()} CRITICAL: {self.header}{message}{self.reset}"
             print(string)
         
     def __datecode(self):

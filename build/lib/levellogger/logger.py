@@ -39,7 +39,9 @@ class Logger():
             self.header = ""
         else:
             self.header = header
-
+        
+        self.level = 1
+        
         if type(level) == str:
             if level.upper() == "DEBUG":
                 level = 0
@@ -60,9 +62,9 @@ class Logger():
             if level < 0 or level > 5:
                 self.__logger_msg("Invalid log level - defaulting to 'INFO'")
                 level = 1
-            else:
-                self.__logger_msg("Log level set to: " + str(level))
-                self.level = level
+        else:
+            self.__logger_msg("Log level set to: " + str(level))
+            self.level = level
 
         self.enabled = True
 
