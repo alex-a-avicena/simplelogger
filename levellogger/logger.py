@@ -41,30 +41,7 @@ class Logger():
             self.header = f"{header}: "
         
         self.level = 1
-
-        if type(level) == str:
-            if level.upper() == "DEBUG":
-                level = 0
-            elif level.upper() == "INFO":
-                level = 1
-            elif level.upper() == "ATTENTION":
-                level = 2
-            elif level.upper() == "WARNING":
-                level = 3
-            elif level.upper() == "ERROR":
-                level = 4
-            elif level.upper() == "CRITICAL":
-                level = 5
-            else:
-                self.__logger_msg("Invalid log level - defaulting to 'INFO'")
-                level = 1
-        elif type(level) == int:
-            if level < 0 or level > 5:
-                self.__logger_msg("Invalid log level - defaulting to 'INFO'")
-                level = 1
-        else:
-            self.__logger_msg("Log level set to: " + str(level))
-            self.level = level
+        self.set_level(level)
 
         self.enabled = True
 
@@ -172,7 +149,34 @@ class Logger():
         Args:
             level (int): The log level.
         """
-        self.level = level
+        levels = {0: "DEBUG", 1: "INFO", 2: "ATTENTION", 3: "WARNING", 4: "ERROR", 5: "CRITICAL"}
+        if type(level) == str:
+            if level.upper() == "DEBUG":
+                self.level = 0
+            elif level.upper() == "INFO":
+                self.level = 1
+            elif level.upper() == "ATTENTION":
+                self.level = 2
+            elif level.upper() == "WARNING":
+                self.level = 3
+            elif level.upper() == "ERROR":
+                self.level = 4
+            elif level.upper() == "CRITICAL":
+                self.level = 5
+            else:
+                self.__logger_msg(f"Invalid log level - '{level.upper()}'")
+                self.level = 1
+            self.__logger_msg(f"Log level set to '{levels[self.level]}'")
+        elif type(level) == int:
+            if level < 0 or level > 5:
+                self.__logger_msg("Invalid log level - log level must be between 0 and 5")
+                level = 1
+            
+            self.__logger_msg(f"Log level set to '{levels[level]}'")
+            self.level = level
+        else:
+            dtype = type(level)
+            self.__logger_msg(f"Invalid log level - type '{dtype}' is not supported")
         
 if __name__ == "__main__":
     logger = Logger()
@@ -192,5 +196,16 @@ if __name__ == "__main__":
     logger.error("This message won't be printed")
     logger.critical("This message won't be printed")
     logger.enable_logging()
+    logger.set_level(logger.INFO)
+    logger.debug("This is a debug message")
+    logger.info("This is an info message")
+    logger.set_level("attention")
+    logger.attention("This is an attention message")
+    logger.set_level(3)
+    logger.warning("This is a warning message")
+    logger.set_level("unladen swallow")
+    logger.error("This is an error message")
+    logger.set_level([1, 2, 3])
+    logger.critical("This is a critical message")
 
                 
